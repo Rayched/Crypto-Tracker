@@ -12,6 +12,7 @@
     "@types/react-dom": "^18.3.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-query": "^3.39.3",
     "react-router-dom": "^6.26.0",
     "react-scripts": "5.0.1",
     "styled-components": "^6.1.12",
@@ -41,5 +42,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "- `TypeScript`, `React`, `styled-components`\r - `React Query`, `React Router v6`",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC"
 }
