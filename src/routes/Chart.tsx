@@ -1,9 +1,14 @@
 import { useQuery } from "react-query";
 import { FetchCoinHistory } from "../modules/Fetchs";
 import styled from "styled-components";
+import Coin from "./Coin";
 import ReactApexChart from "react-apexcharts";
 
-const ChartWrap = styled.div``;
+const ChartWrap = styled.div`
+    margin-top: 10px;
+    width: 400px;
+    height: 400px;
+`;
 
 interface ChartProps {
     coinID: string|undefined;
@@ -20,7 +25,7 @@ interface History_types {
     market_cap: number;
 }
 
-function Chart({coinID}: ChartProps){
+function CoinChart({coinID}: ChartProps){
     const {isLoading, data: CoinHistory} = useQuery<History_types[]>(
         ["CoinHistory", coinID], 
         () => FetchCoinHistory(coinID)
@@ -34,25 +39,71 @@ function Chart({coinID}: ChartProps){
                 isLoading 
                 ? "Chart Data Loading..." 
                 : (
+                    /*
                     <ReactApexChart
                         type="line"
                         series={[
                             {
-                                name: "Test1",
-                                data: [1, 2, 5, 7, 10, 13, 17, 25]
-                            },
-                            {
-                                name: "Test2",
-                                data: [5, 6, 8, 25, 20, 14, 1, 0]
-                            },
+                                name: "Price",
+                                data: CoinHistory?.map((price) => parseFloat(price.close))??[]
+                            }
                         ]}
                         options={{
                             chart: {
-                                width: 500,
-                                height: 600
+                                width: "100%",
+                                background: "#f1f2f6"
                             },
                             theme: {
                                 mode: "dark",
+                                monochrome: {
+                                    enabled: false,
+                                    shadeTo: "light"
+                                }
+                            },
+                            stroke: {
+                                curve: "smooth"
+                            }
+                        }}
+                    />*/
+                    <ReactApexChart 
+                        type="candlestick"
+                        series={[
+                            {
+                                name: "Price",
+                                data: CoinHistory?.map((price) => ({
+                                    x: new Date(price.time_open),
+                                    y: [
+                                        parseFloat(price.open), 
+                                        parseFloat(price.high), 
+                                        parseFloat(price.low), 
+                                        parseFloat(price.close)
+                                    ]
+                                }))as any[]
+                            }
+                        ]}
+                        options={{
+                            plotOptions: {
+                                candlestick: {
+                                    colors: {
+                                        upward: "#ff4757",
+                                        downward: "#5352ed"
+                                    }
+                                }
+                            },
+                            chart: {
+                                width: "100%",
+                                background: "#f1f2f6"
+                            },
+                            xaxis: {
+                                type: "datetime",
+                                categories: CoinHistory?.map(
+                                    (price) => (price.time_close)
+                                ),
+                                labels: {
+                                    datetimeFormatter: {
+                                        month: "mmm 'yy"
+                                    }
+                                }
                             }
                         }}
                     />
@@ -62,4 +113,4 @@ function Chart({coinID}: ChartProps){
     );
 };
 
-export default Chart;
+export default CoinChart;

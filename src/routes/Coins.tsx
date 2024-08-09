@@ -3,17 +3,24 @@ import styled from "styled-components";
 import { FetchCoins } from "../modules/Fetchs";
 import { Link } from "react-router-dom";
 import ToggleBtn from "../modules/ToggleBtn";
+import { theme } from "../Router";
 
 const Header = styled.h2`
     height: 10vh;
     display: flex;
     align-items: center;
+    justify-content: center;
 `;
 
 const Title = styled.div`
     font-size: 30px;
     text-align: center;
     width: 80%;
+`;
+
+const NavBar = styled.div`
+    position: absolute;
+    left: 80%;
 `;
 
 const Wrapper = styled.div`
@@ -31,12 +38,11 @@ const CoinList = styled.ul`
 
 const CoinItem = styled.li`
     width: 80%;
-    background-color: white;
+    background-color: ${(props) => props.theme.ItemBgColor};
     padding: 20px;
     border: 2px solid black;
     border-radius: 15px;
     margin-bottom: 10px;
-    color: black;
 
     a {
         padding: 20px;
@@ -45,7 +51,8 @@ const CoinItem = styled.li`
         font-size: 18px;
         font-weight: bold;
     } &:hover {
-        background-color: lightgray;
+        color: ${(props) => props.theme.accentColor};
+        background-color: ${(props) => props.theme.accentBgColor};
     }
 `;
 
@@ -64,7 +71,7 @@ interface CoinDataTypes {
     type: string,
 }
 
-function Coins(){
+function Coins({isTheme, onToggle}: theme){
     const {isLoading, data: CoinData} = useQuery<CoinDataTypes[]>(
         "Allcoins", FetchCoins, {select: (coins) => coins.slice(0, 50)}
     );
@@ -73,7 +80,12 @@ function Coins(){
         <Wrapper>
             <Header>
                 <Title>코인 목록</Title>
-                <ToggleBtn />
+                <NavBar>
+                    <ToggleBtn 
+                        isTheme={isTheme}
+                        onToggle={onToggle}
+                    />
+                </NavBar>
             </Header>
                 {
                     isLoading ?

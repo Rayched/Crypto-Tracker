@@ -2,17 +2,36 @@ import { useState } from "react";
 import styled from "styled-components";
 
 const ToggleButton = styled.div`
+    width: 100px;
+    height: 40px;
     border: 2px solid black;
     padding: 3px;
     border-radius: 10px;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+
+    background-color: ${(props) => props.theme.ItemBgColor};
+    color: ${(props) => props.theme.textColor};
+
+    &:hover {
+        background-color: ${(props) => props.theme.accentBgColor};
+    }
 `;
 
-function ToggleBtn(){
-    const [theme, settheme] = useState("Light");
+interface theme {
+    isTheme: boolean|undefined;
+    onToggle: Function;   
+}
 
-    const onToggle = () => {
-        if(theme === "Light"){
+function ToggleBtn({isTheme, onToggle}: theme){
+    const [theme, settheme] = useState("Dark");
+
+    const onClick = () => {
+        onToggle();
+        if(isTheme === true){
             settheme("Dark");
         } else {
             settheme("Light")
@@ -20,9 +39,9 @@ function ToggleBtn(){
     }
 
     return (
-        <ToggleButton onClick={onToggle}>
+        <ToggleButton onClick={onClick}>
             {
-                theme === "Light" ? "SUN" : "MOON"
+                theme === "Dark" ? "🌞 SUN" : "🌙 MOON"
             }
         </ToggleButton>
     );

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Coins from './routes/Coins';
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import Router from './Router';
 import { ReactQueryDevtools } from "react-query/devtools";
+import { Theme } from './theme';
  
 const GlobalStyle = createGlobalStyle`
   /**CSS Reset*/
@@ -33,7 +34,8 @@ const GlobalStyle = createGlobalStyle`
   }
   body {
     line-height: 1;
-    
+    background-color: ${(props) => props.theme.BgColor};
+    color: ${(props) => props.theme.textColor};
     a {
       text-decoration: none;
       color: inherit;
@@ -57,11 +59,19 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
+  const [theme, setTheme] = useState(false);
+
+  const onToggle = () => {
+      setTheme((isTheme) => !isTheme);
+  }
+
   return (
     <>
-      <GlobalStyle />
-      <Router />
-      <ReactQueryDevtools initialIsOpen={false}/>
+      <ThemeProvider theme={theme ? Theme.DarkTheme : Theme.LightTheme}>
+        <GlobalStyle />
+        <Router isTheme={theme} onToggle={onToggle}/>
+        <ReactQueryDevtools initialIsOpen={false}/>
+      </ThemeProvider>
     </>
   );
 }

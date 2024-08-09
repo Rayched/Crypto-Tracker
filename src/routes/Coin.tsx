@@ -2,14 +2,15 @@ import { useQuery } from "react-query";
 import { Link, Route, Routes, useMatch, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { FetchCoinInfo, FetchCoinTickers } from "../modules/Fetchs";
-import Chart from "./Chart";
 import Price from "./Price";
 import ToggleBtn from "../modules/ToggleBtn";
+import CoinChart from "./chart";
+import { theme } from "../Router";
 
 const RootContainer = styled.main`
-    max-width: 480px;
     padding: 0px 20px;
     margin: 0 auto;
+    background-color: ${(props) => props.theme.BgColor};
 `;
 
 const Header = styled.header`
@@ -27,20 +28,23 @@ const CoinImgs = styled.img`
 
 const Title = styled.div`
     font-size: 30px;
-    color: black;
 `;
 
 const NavBar = styled.div`
     position: absolute;
-    left: 90%;
+    left: 80%;
 `;
 
 const HomeBtn = styled.div`
-    padding: 3px;
+    padding: 5px;
     border: 1px solid black;
     text-align: center;
     align-items: center;
     margin: 5px 0px;
+    background-color: ${(props) => props.theme.ItemBgColor};
+    &:hover {
+        background-color: ${(props) => props.theme.accentBgColor};
+    }
 `;
 
 const MainWrapper = styled.div`
@@ -56,8 +60,9 @@ const MainWrapper = styled.div`
 const InfoBox = styled.div`
     display: flex;
     justify-content: space-between;
-    background-color: lightgray;
+    background-color: ${(props) => props.theme.ItemBgColor};
     border: 1px solid black;
+    border-radius: 15px;
     padding: 10px 20px;
 
     margin: 35px 0px;
@@ -71,7 +76,8 @@ const InfoItem = styled.div`
     margin: 0px 20px;
 
     span:first-child {
-        font-size: 12px;
+        font-size: 20px;
+        font-weight: bold;
         text-transform: uppercase;
         margin-bottom: 5px;
     }
@@ -97,12 +103,16 @@ const TabItem = styled.div<{isActive: boolean}>`
     text-align: center;
     font-size: 18px;
     margin: 10px;
-    color: ${(props) => props.isActive ? "yellow" : "white"};
-    background-color: gray;
+    color: ${(props) => props.theme.textColor};
+
+    background-color: ${(props) => 
+        props.isActive ? props.theme.accentBgColor : props.theme.ItemBgColor
+    };
+
     border-radius: 10px;
 
     &:hover {
-        background-color: lightgray;
+        background-color: ${(props) => props.theme.accentBgColor};
     }
     a {
         display: block;
@@ -110,7 +120,7 @@ const TabItem = styled.div<{isActive: boolean}>`
     }
 `;
 
-function Coin(){
+function Coin({isTheme, onToggle}:theme){
     const {coinID} = useParams();
 
     const chartMatch = useMatch("/:coinID/chart");
@@ -121,7 +131,8 @@ function Coin(){
     );
 
     const {isLoading: isTicker, data: CoinTicker} = useQuery(
-        "CoinTicker", () => FetchCoinTickers(coinID)
+        ["CoinTicker", coinID], 
+        () => FetchCoinTickers(coinID),
     );
 
     console.log(CoinInfo);
@@ -138,7 +149,10 @@ function Coin(){
                     <HomeBtn>
                         <Link to="/">← Home</Link>
                         </HomeBtn>
-                        <ToggleBtn />
+                        <ToggleBtn 
+                            isTheme={isTheme}
+                            onToggle={onToggle}
+                        />
                 </NavBar>
             </Header>
             {
@@ -181,7 +195,7 @@ function Coin(){
                             </TabItem>
                         </Tabs>
                         <Routes>
-                            <Route path="chart" element={<Chart coinID={coinID}/>}/>
+                            <Route path="chart" element={<CoinChart coinID={coinID}/>}/>
                             <Route path="price" element={<Price />}/>
                         </Routes>
                     </MainWrapper>
