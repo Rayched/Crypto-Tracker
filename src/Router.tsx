@@ -9,7 +9,7 @@ export interface theme {
 
 function Router({isTheme, onToggle}: theme){
     return (
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Routes>
                 <Route path="/" element={<Coins isTheme={isTheme} onToggle={onToggle}/>}></Route>
                 <Route path="/:coinID/*" element={<Coin isTheme={isTheme} onToggle={onToggle}/>}></Route>
