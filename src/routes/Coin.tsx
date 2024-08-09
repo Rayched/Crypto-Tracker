@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { FetchCoinInfo, FetchCoinTickers } from "../modules/Fetchs";
 import Price from "./Price";
 import ToggleBtn from "../modules/ToggleBtn";
-import CoinChart from "./chart";
 import { theme } from "../Router";
+import CoinChart from "./Chart";
 
 const RootContainer = styled.main`
     padding: 0px 20px;
