@@ -1,6 +1,6 @@
 ## Crypto Tracker
 
-#### 📆 2024.08.07 ~ 2024.08.09
+#### 📆 2024.08.07 ~ 2024.08.10 \[05:13\]
 #### 💻 Skills
 - `TypeScript`, `React`, `styled-components`
 - `React Query`, `React Router v6`
@@ -16,3 +16,8 @@
 ```
 
 - **[CandleStick Sample](https://apexcharts.com/react-chart-demos/candlestick-charts/basic/)**
+
+- 2024.08.10 토요일 05:14 1차 Build 완료
+- 역시 밤샘은 힘들다...
+- 그래도 마감 전까지 제출 완료했으니
+- 밤새서 코딩한게 완전 무의미하진 않은 것 같다...
