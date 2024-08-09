@@ -6,6 +6,12 @@ import Chart from "./Chart";
 import Price from "./Price";
 import ToggleBtn from "../modules/ToggleBtn";
 
+const RootContainer = styled.main`
+    max-width: 480px;
+    padding: 0px 20px;
+    margin: 0 auto;
+`;
+
 const Header = styled.header`
     height: 10vh;
     display: flex;
@@ -25,11 +31,8 @@ const Title = styled.div`
 `;
 
 const NavBar = styled.div`
-    padding: 3px;
-    display: flex;
-    justify-content: space-between;
-    border: 1px solid black;
-    width: 80%;
+    position: absolute;
+    left: 90%;
 `;
 
 const HomeBtn = styled.div`
@@ -37,12 +40,17 @@ const HomeBtn = styled.div`
     border: 1px solid black;
     text-align: center;
     align-items: center;
+    margin: 5px 0px;
 `;
 
-const Wrapper = styled.main`
+const MainWrapper = styled.div`
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
+    padding: 35px 0px;
+
+    font-size: 18px;
 `;
 
 const InfoBox = styled.div`
@@ -53,14 +61,14 @@ const InfoBox = styled.div`
     padding: 10px 20px;
 
     margin: 35px 0px;
-
-    width: 80%;
 `;
 
 const InfoItem = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    margin: 0px 20px;
 
     span:first-child {
         font-size: 12px;
@@ -72,8 +80,6 @@ const InfoItem = styled.div`
 const DescBox = styled.div`
     border: 1px solid black;
     padding: 5px;
-    width: 60%;
-
     margin: 25px 0px;
 `;
 
@@ -84,16 +90,13 @@ const Tabs = styled.div`
     border: 2px solid black;
     border-radius: 10px;
     padding: 3px;
-
-    width: 80%;
 `;
 
 const TabItem = styled.div<{isActive: boolean}>`
-    width: 100px;
+    width: 150px;
     text-align: center;
     font-size: 18px;
-    margin: 3px;
-    padding: 7px;
+    margin: 10px;
     color: ${(props) => props.isActive ? "yellow" : "white"};
     background-color: gray;
     border-radius: 10px;
@@ -103,6 +106,7 @@ const TabItem = styled.div<{isActive: boolean}>`
     }
     a {
         display: block;
+        padding: 7px;
     }
 `;
 
@@ -126,21 +130,21 @@ function Coin(){
     const TotalLoading = isInfo || isTicker;
 
     return (
-        <Wrapper>
+        <RootContainer>
             <Header>
                 <CoinImgs src={`https://static.coinpaprika.com/coin/${coinID ? coinID : CoinInfo?.id}/logo.png`}/>
                 <Title>{CoinInfo?.name}</Title>
+                <NavBar>
+                    <HomeBtn>
+                        <Link to="/">← Home</Link>
+                        </HomeBtn>
+                        <ToggleBtn />
+                </NavBar>
             </Header>
-            <NavBar>
-                <HomeBtn>
-                    <Link to="/">← Home</Link>
-                </HomeBtn>
-                <ToggleBtn />
-            </NavBar>
             {
                 TotalLoading ? "코인 정보를 가져오고 있습니다..."
                 : (
-                    <div>
+                    <MainWrapper>
                         <InfoBox>
                             <InfoItem>
                                 <span>Rank</span>
@@ -177,13 +181,13 @@ function Coin(){
                             </TabItem>
                         </Tabs>
                         <Routes>
-                            <Route path="chart" element={<Chart />}/>
+                            <Route path="chart" element={<Chart coinID={coinID}/>}/>
                             <Route path="price" element={<Price />}/>
                         </Routes>
-                    </div>
+                    </MainWrapper>
                 )
             }
-        </Wrapper>
+        </RootContainer>
     );
 };
 

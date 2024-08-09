@@ -1,6 +1,9 @@
 //React Query, Query Function
 
 const Based_URL = "https://api.coinpaprika.com/v1";
+const Replace_URL = "https://ohlcv-api.nomadcoders.workers.dev";
+//기존에 사용하던 coinpaprika api는 유료로 전환됐기 때문에
+//강의에서 제공되는 자체 api 사용하였음.
 
 //Main Home (Coins.tsx)
 //코인 목록 fetch
@@ -26,3 +29,10 @@ export async function FetchCoinTickers(coinID?: string) {
 
     return json;
 }
+
+//Coin - Chart Tab, Chart Data Fetch
+export function FetchCoinHistory(coinID: string|undefined){
+    return fetch(`${Replace_URL}?coinId=${coinID}`).then(
+        (resp) => resp.json()
+    );
+};

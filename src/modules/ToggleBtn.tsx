@@ -5,19 +5,24 @@ const ToggleButton = styled.div`
     border: 2px solid black;
     padding: 3px;
     border-radius: 10px;
+    text-align: center;
 `;
 
 function ToggleBtn(){
-    const [theme, settheme] = useState(false);
+    const [theme, settheme] = useState("Light");
 
     const onToggle = () => {
-        settheme(!theme);
+        if(theme === "Light"){
+            settheme("Dark");
+        } else {
+            settheme("Light")
+        }
     }
 
     return (
         <ToggleButton onClick={onToggle}>
             {
-                theme ? "SUN" : "MOON"
+                theme === "Light" ? "SUN" : "MOON"
             }
         </ToggleButton>
     );
