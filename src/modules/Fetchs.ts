@@ -5,10 +5,9 @@ const Based_URL = "https://api.coinpaprika.com/v1";
 //Main Home (Coins.tsx)
 //코인 목록 fetch
 export async function FetchCoins(){
-    const Coins = await fetch(`${Based_URL}/coins`);
-    const json = await Coins.json();
-
-    return json;
+    return fetch(`${Based_URL}/coins`).then(
+        (resp) => resp.json()
+    );
 };
 
 //Detail Page (Coin.tsx)

@@ -2,18 +2,35 @@ import { useQuery } from "react-query";
 import styled from "styled-components";
 import { FetchCoins } from "../modules/Fetchs";
 import { Link } from "react-router-dom";
+import ToggleBtn from "../modules/ToggleBtn";
 
 const Header = styled.h2`
     height: 10vh;
     display: flex;
-    justify-content: center;
     align-items: center;
-    font-size: 30px;
 `;
 
-const CoinList = styled.ul``;
+const Title = styled.div`
+    font-size: 30px;
+    text-align: center;
+    width: 80%;
+`;
+
+const Wrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+`;
+
+const CoinList = styled.ul`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+`;
 
 const CoinItem = styled.li`
+    width: 80%;
     background-color: white;
     padding: 20px;
     border: 2px solid black;
@@ -53,33 +70,34 @@ function Coins(){
     );
 
     return (
-        <div>
+        <Wrapper>
             <Header>
-                코인 목록
+                <Title>코인 목록</Title>
+                <ToggleBtn />
             </Header>
-            {
-                isLoading ?
-                (
-                    <div>
-                        <h3>Data 가져오고 있습니다.</h3>
-                        <h4>잠시만 기다려주세요...</h4>
-                    </div>
-                ) : (
-                    <CoinList>
-                        {
-                            CoinData?.map((coins) => 
-                                <CoinItem key={coins.id}>
-                                    <Link to={`${coins.id}`} state={coins.name}>
-                                        <CoinImg src={`https://static.coinpaprika.com/coin/${coins.id}/logo.png`}/>
-                                        {coins.name}
-                                    </Link>
-                                </CoinItem>
-                            )
-                        }
-                    </CoinList>
-                )
-            }
-        </div>
+                {
+                    isLoading ?
+                    (
+                        <div>
+                            <h3>Data 가져오고 있습니다.</h3>
+                            <h4>잠시만 기다려주세요...</h4>
+                        </div>
+                    ) : (
+                        <CoinList>
+                            {
+                                CoinData?.map((coins) => 
+                                    <CoinItem key={coins.id}>
+                                        <Link to={`${coins.id}`} state={coins.name}>
+                                            <CoinImg src={`https://static.coinpaprika.com/coin/${coins.id}/logo.png`}/>
+                                            {coins.name}
+                                        </Link>
+                                    </CoinItem>
+                                )
+                            }
+                        </CoinList>
+                    )
+                }
+        </Wrapper>
     );
 };
 

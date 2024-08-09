@@ -46,5 +46,8 @@
   "description": "- `TypeScript`, `React`, `styled-components`\r - `React Query`, `React Router v6`",
   "main": "index.js",
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@typescript-eslint/parser": "^5.62.0"
+  }
 }
