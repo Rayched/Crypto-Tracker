@@ -3,10 +3,9 @@ import { Link, Route, Routes, useMatch, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { FetchCoinInfo, FetchCoinTickers } from "../modules/Fetchs";
 import Price from "./Price";
-import ToggleBtn from "../modules/ToggleBtn";
-import { theme } from "../Router";
 import CoinChart from "./Chart";
 import { Loadings } from "./Coins";
+import ToggleBtn from "../modules/ToggleBtn";
 
 const RootContainer = styled.main`
     padding: 0px 20px;
@@ -124,7 +123,7 @@ const TabItem = styled.div<{isActive: boolean}>`
     }
 `;
 
-function Coin({isTheme, onToggle}:theme){
+function Coin(){
     const {coinID} = useParams();
 
     const chartMatch = useMatch("/:coinID/chart");
@@ -152,11 +151,8 @@ function Coin({isTheme, onToggle}:theme){
                 <NavBar>
                     <HomeBtn>
                         <Link to="/">← Home</Link>
-                        </HomeBtn>
-                        <ToggleBtn 
-                            isTheme={isTheme}
-                            onToggle={onToggle}
-                        />
+                    </HomeBtn>
+                    <ToggleBtn />
                 </NavBar>
             </Header>
             {

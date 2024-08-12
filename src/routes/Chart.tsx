@@ -1,8 +1,9 @@
 import { useQuery } from "react-query";
 import { FetchCoinHistory } from "../modules/Fetchs";
 import styled from "styled-components";
-import Coin from "./Coin";
 import ReactApexChart from "react-apexcharts";
+import { useRecoilValue } from "recoil";
+import { isDarkAtom } from "../atoms";
 
 const ChartWrap = styled.div`
     margin-top: 10px;
@@ -31,6 +32,8 @@ function CoinChart({coinID}: ChartProps){
         () => FetchCoinHistory(coinID)
     );
 
+    const isDark = useRecoilValue(isDarkAtom);
+
     console.log(CoinHistory);
 
     return (
@@ -39,32 +42,6 @@ function CoinChart({coinID}: ChartProps){
                 isLoading 
                 ? "Chart Data Loading..." 
                 : (
-                    /*
-                    <ReactApexChart
-                        type="line"
-                        series={[
-                            {
-                                name: "Price",
-                                data: CoinHistory?.map((price) => parseFloat(price.close))??[]
-                            }
-                        ]}
-                        options={{
-                            chart: {
-                                width: "100%",
-                                background: "#f1f2f6"
-                            },
-                            theme: {
-                                mode: "dark",
-                                monochrome: {
-                                    enabled: false,
-                                    shadeTo: "light"
-                                }
-                            },
-                            stroke: {
-                                curve: "smooth"
-                            }
-                        }}
-                    />*/
                     <ReactApexChart 
                         type="candlestick"
                         series={[
@@ -89,6 +66,9 @@ function CoinChart({coinID}: ChartProps){
                                         downward: "#5352ed"
                                     }
                                 }
+                            },
+                            theme: {
+                                mode: isDark ? "dark" : "light",
                             },
                             chart: {
                                 width: "100%",

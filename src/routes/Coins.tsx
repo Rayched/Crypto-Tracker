@@ -2,8 +2,9 @@ import { useQuery } from "react-query";
 import styled from "styled-components";
 import { FetchCoins } from "../modules/Fetchs";
 import { Link } from "react-router-dom";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { isDarkAtom } from "../atoms";
 import ToggleBtn from "../modules/ToggleBtn";
-import { theme } from "../Router";
 
 const Wrapper = styled.div`
     display: flex;
@@ -79,7 +80,7 @@ interface CoinDataTypes {
     type: string,
 }
 
-function Coins({isTheme, onToggle}: theme){
+function Coins(){
     const {isLoading, data: CoinData} = useQuery<CoinDataTypes[]>(
         "Allcoins", FetchCoins, {select: (coins) => coins.slice(0, 50)}
     );
@@ -91,10 +92,7 @@ function Coins({isTheme, onToggle}: theme){
                     <span>코인 목록 / Coin's List</span>
                 </Title>
                 <NavBar>
-                    <ToggleBtn 
-                        isTheme={isTheme}
-                        onToggle={onToggle}
-                    />
+                    <ToggleBtn />
                 </NavBar>
             </Header>
                 {

@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { isDarkAtom } from "../atoms";
 
 const ToggleButton = styled.div`
     width: 100px;
@@ -21,27 +23,15 @@ const ToggleButton = styled.div`
     }
 `;
 
-interface theme {
-    isTheme: boolean|undefined;
-    onToggle: Function;   
-}
+function ToggleBtn(){
+    const [isDark, setDark] = useRecoilState(isDarkAtom);
 
-function ToggleBtn({isTheme, onToggle}: theme){
-    const [theme, settheme] = useState("Dark");
-
-    const onClick = () => {
-        onToggle();
-        if(isTheme === true){
-            settheme("Dark");
-        } else {
-            settheme("Light")
-        }
-    }
+    const onToggle = () => setDark(!isDark);
 
     return (
-        <ToggleButton onClick={onClick}>
+        <ToggleButton onClick={onToggle}>
             {
-                theme === "Dark" ? "LIGHT" : "DARK"
+                isDark ? "Dark" : "LIGHT"
             }
         </ToggleButton>
     );

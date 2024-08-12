@@ -2,17 +2,12 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Coins from "./routes/Coins";
 import Coin from "./routes/Coin";
 
-export interface theme {
-    isTheme: boolean|undefined;
-    onToggle: Function;   
-}
-
-function Router({isTheme, onToggle}: theme){
+function Router(){
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Routes>
-                <Route path="/" element={<Coins isTheme={isTheme} onToggle={onToggle}/>}></Route>
-                <Route path="/:coinID/*" element={<Coin isTheme={isTheme} onToggle={onToggle}/>}></Route>
+                <Route path="/" element={<Coins />}></Route>
+                <Route path="/:coinID/*" element={<Coin />}></Route>
             </Routes>
         </BrowserRouter>
     );

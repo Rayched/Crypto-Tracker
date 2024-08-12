@@ -14,8 +14,3 @@ export const DarkTheme = {
     accentColor: "#8854d0", //하이라이트 시, 글자색
     accentBgColor: "#a4b0be", //하이라이트 시, 배경색
 }
-
-export const Theme = {
-    LightTheme,
-    DarkTheme
-}

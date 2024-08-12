@@ -3,10 +3,12 @@ import Coins from './routes/Coins';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import Router from './Router';
 import { ReactQueryDevtools } from "react-query/devtools";
-import { Theme } from './theme';
- 
+import { DarkTheme, LightTheme } from './theme';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { isDarkAtom } from './atoms';
+
+//CSS Reset
 const GlobalStyle = createGlobalStyle`
-  /**CSS Reset*/
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
   
   html, body, div, span, applet, object, iframe,
@@ -61,17 +63,13 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
-  const [theme, setTheme] = useState(false);
-
-  const onToggle = () => {
-      setTheme((isTheme) => !isTheme);
-  }
+  const isDark = useRecoilValue(isDarkAtom);
 
   return (
     <>
-      <ThemeProvider theme={theme ? Theme.DarkTheme : Theme.LightTheme}>
+      <ThemeProvider theme={isDark ? DarkTheme : LightTheme}>
         <GlobalStyle />
-        <Router isTheme={theme} onToggle={onToggle}/>
+        <Router />
         <ReactQueryDevtools initialIsOpen={false}/>
       </ThemeProvider>
     </>
