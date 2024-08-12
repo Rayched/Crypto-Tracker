@@ -5,6 +5,12 @@ import { Link } from "react-router-dom";
 import ToggleBtn from "../modules/ToggleBtn";
 import { theme } from "../Router";
 
+const Wrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+`;
+
 const Header = styled.h2`
     height: 10vh;
     display: flex;
@@ -20,13 +26,7 @@ const Title = styled.div`
 
 const NavBar = styled.div`
     position: absolute;
-    left: 80%;
-`;
-
-const Wrapper = styled.div`
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+    left: 74%;
 `;
 
 const CoinList = styled.ul`
@@ -37,7 +37,7 @@ const CoinList = styled.ul`
 `;
 
 const CoinItem = styled.li`
-    width: 80%;
+    width: 60%;
     background-color: ${(props) => props.theme.ItemBgColor};
     padding: 20px;
     border: 2px solid black;
@@ -61,6 +61,14 @@ const CoinImg = styled.img`
     margin-right: 7px;
 `;
 
+export const Loadings = styled.div`
+    padding: 10px;
+    margin: 10px 0px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+`;
+
 interface CoinDataTypes {
     id: string,
     name: string,
@@ -79,7 +87,9 @@ function Coins({isTheme, onToggle}: theme){
     return (
         <Wrapper>
             <Header>
-                <Title>코인 목록</Title>
+                <Title>
+                    <span>코인 목록 / Coin's List</span>
+                </Title>
                 <NavBar>
                     <ToggleBtn 
                         isTheme={isTheme}
@@ -90,10 +100,10 @@ function Coins({isTheme, onToggle}: theme){
                 {
                     isLoading ?
                     (
-                        <div>
-                            <h3>Data 가져오고 있습니다.</h3>
+                        <Loadings>
+                            <h3>코인 데이터를 가져오고 있습니다.</h3>
                             <h4>잠시만 기다려주세요...</h4>
-                        </div>
+                        </Loadings>
                     ) : (
                         <CoinList>
                             {

@@ -6,7 +6,8 @@ import { FetchCoinTickers } from "../modules/Fetchs";
 const Container = styled.div`
     display: flex;
     flex-direction: column;
-    background-color: #f1f2f6;
+    background-color: ${(props) => props.theme.ItemBgColor};
+    color: ${(props) => props.theme.textColor};
     padding: 5px;
 `;
 

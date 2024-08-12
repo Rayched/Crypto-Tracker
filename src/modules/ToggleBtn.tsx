@@ -41,7 +41,7 @@ function ToggleBtn({isTheme, onToggle}: theme){
     return (
         <ToggleButton onClick={onClick}>
             {
-                theme === "Dark" ? "🌞 SUN" : "🌙 MOON"
+                theme === "Dark" ? "LIGHT" : "DARK"
             }
         </ToggleButton>
     );

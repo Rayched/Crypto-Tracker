@@ -6,11 +6,13 @@ import Price from "./Price";
 import ToggleBtn from "../modules/ToggleBtn";
 import { theme } from "../Router";
 import CoinChart from "./Chart";
+import { Loadings } from "./Coins";
 
 const RootContainer = styled.main`
     padding: 0px 20px;
     margin: 0 auto;
     background-color: ${(props) => props.theme.BgColor};
+    max-width: 500px;
 `;
 
 const Header = styled.header`
@@ -32,6 +34,7 @@ const Title = styled.div`
 
 const NavBar = styled.div`
     position: absolute;
+    top: 1%;
     left: 80%;
 `;
 
@@ -96,6 +99,7 @@ const Tabs = styled.div`
     border: 2px solid black;
     border-radius: 10px;
     padding: 3px;
+    font-weight: bold;
 `;
 
 const TabItem = styled.div<{isActive: boolean}>`
@@ -156,7 +160,11 @@ function Coin({isTheme, onToggle}:theme){
                 </NavBar>
             </Header>
             {
-                TotalLoading ? "코인 정보를 가져오고 있습니다..."
+                TotalLoading ? 
+                <Loadings>
+                    <h3>coinID: {coinID}인 코인과 관련된</h3>
+                    <h3>여러 정보 (기본 정보, 가격 정보..) 가져오고 있습니다...</h3>
+                </Loadings>
                 : (
                     <MainWrapper>
                         <InfoBox>

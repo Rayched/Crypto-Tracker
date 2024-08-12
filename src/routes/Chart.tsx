@@ -92,7 +92,6 @@ function CoinChart({coinID}: ChartProps){
                             },
                             chart: {
                                 width: "100%",
-                                background: "#f1f2f6"
                             },
                             xaxis: {
                                 type: "datetime",
