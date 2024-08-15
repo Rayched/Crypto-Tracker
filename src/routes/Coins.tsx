@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { isDarkAtom } from "../atoms";
 import ToggleBtn from "../modules/ToggleBtn";
+import { Helmet } from "react-helmet-async";
 
 const Wrapper = styled.div`
     display: flex;
@@ -87,6 +88,9 @@ function Coins(){
 
     return (
         <Wrapper>
+            <Helmet>
+                <title>Crypto Tracker</title>
+            </Helmet>
             <Header>
                 <Title>
                     <span>코인 목록 / Coin's List</span>

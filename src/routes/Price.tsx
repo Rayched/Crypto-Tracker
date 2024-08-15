@@ -2,6 +2,7 @@ import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { FetchCoinTickers } from "../modules/Fetchs";
+import { Helmet } from "react-helmet-async";
 
 const Container = styled.div`
     display: flex;
@@ -62,6 +63,9 @@ function Price(){
 
     return (
         <Container>
+            <Helmet>
+                <title>Price</title>
+            </Helmet>
             {
                 isLoading ? "Price data 가져오고 있습니다..."
                 : (

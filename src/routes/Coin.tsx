@@ -6,6 +6,7 @@ import Price from "./Price";
 import CoinChart from "./Chart";
 import { Loadings } from "./Coins";
 import ToggleBtn from "../modules/ToggleBtn";
+import { Helmet } from "react-helmet-async";
 
 const RootContainer = styled.main`
     padding: 0px 20px;
@@ -123,6 +124,11 @@ const TabItem = styled.div<{isActive: boolean}>`
     }
 `;
 
+const TitleImg = styled.img`
+    width: 16px;
+    height: 16px;
+`;
+
 function Coin(){
     const {coinID} = useParams();
 
@@ -145,6 +151,9 @@ function Coin(){
 
     return (
         <RootContainer>
+            <Helmet>
+                <title>{CoinInfo?.name}</title>
+            </Helmet>
             <Header>
                 <CoinImgs src={`https://static.coinpaprika.com/coin/${coinID ? coinID : CoinInfo?.id}/logo.png`}/>
                 <Title>{CoinInfo?.name}</Title>

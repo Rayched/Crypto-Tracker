@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
-import Coins from './routes/Coins';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import Router from './Router';
 import { ReactQueryDevtools } from "react-query/devtools";
 import { DarkTheme, LightTheme } from './theme';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { isDarkAtom } from './atoms';
 
 //CSS Reset
@@ -68,9 +66,9 @@ function App() {
   return (
     <>
       <ThemeProvider theme={isDark ? DarkTheme : LightTheme}>
-        <GlobalStyle />
-        <Router />
-        <ReactQueryDevtools initialIsOpen={false}/>
+          <GlobalStyle />
+          <Router />
+          <ReactQueryDevtools initialIsOpen={false}/>
       </ThemeProvider>
     </>
   );

@@ -4,6 +4,7 @@ import styled from "styled-components";
 import ReactApexChart from "react-apexcharts";
 import { useRecoilValue } from "recoil";
 import { isDarkAtom } from "../atoms";
+import { Helmet } from "react-helmet-async";
 
 const ChartWrap = styled.div`
     margin-top: 10px;
@@ -38,6 +39,9 @@ function CoinChart({coinID}: ChartProps){
 
     return (
         <ChartWrap>
+            <Helmet>
+                <title>Chart</title>
+            </Helmet>
             {
                 isLoading 
                 ? "Chart Data Loading..." 
